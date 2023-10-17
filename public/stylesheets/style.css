@@ -1,0 +1,20 @@
+*{
+    text-align: center;
+ }
+ 
+ header{
+     height: 166px !important;
+     padding-top: 0%;
+     padding-bottom: 0%;
+     padding-left: 10%;
+     padding-right: 10%;
+     align-items: center;
+ }
+
+ .horarios{
+    background-color: #77BC1F;
+    margin-top: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+ }
+ 
