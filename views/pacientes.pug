@@ -5,13 +5,11 @@ body
   div.container
       h1.mb-4.link-custom Lista de Pacientes
       // Formulario de búsqueda por DNI
-    
       form.form-inline.mb-100(action='/buscar', method='get')
-      .form-group.inline-group
+        .form-group
           input.form-control.mr-2(type='text', name='dni', placeholder='Ingrese DNI') 
           button.btn.btn-custom(type='submit') Buscar
           
-
       table.table.table-striped.table-bordered
         thead
           tr
