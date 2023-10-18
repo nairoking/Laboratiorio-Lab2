@@ -18,3 +18,22 @@
     padding-bottom: 20px;
  }
  
+ .btn-custom {
+    background-color: #77BC1F; /* Cambia este valor al color que prefieras */
+    border-color: #77BC1F; /* Puedes ajustar el color del borde si lo deseas */
+  }
+  .btn-custom:hover {
+    background-color: #457a05; /* Cambia este valor al color que prefieras cuando el botón está en hover */
+  }
+
+  .link-custom {
+    color: #77BC1F; /* Cambia este valor al color que prefieras */
+  }
+  
+  .link-custom:hover {
+    color: #457a05; /* Cambia este valor al color que prefieras cuando el enlace se pone en hover */
+  }
+  input.form-control:focus {
+    border-color: #77BC1F !important; 
+    box-shadow: 0 0 0 0.2rem rgba(20, 247, 28, 0.4) !important;
+  }

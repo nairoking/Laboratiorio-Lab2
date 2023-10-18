@@ -1,48 +1,40 @@
-html
-  head
-    title Registro
-  include includes/header
+head
+  title Registro
+include includes/header
 body
-  div.form-group
-    form(action="/registrar", method="post")
-      label(for="name") Nombre
-      br
-      input(type="text", name="name")
-      br
-      label(for="apellido") Apellido
-      br
-      input(type="text", name="apellido")
-      br
-      label(for="DNI") DNI
-      br
-      input(type="text", name="DNI")
-      br
-      label(for="telefono") Telefono
-      br
-      input(type="text", name="telefono")
-      br
-      label(for="contraseña") Contraseña
-      br
-      input(type="contraseña", name="password")
-      br
-      label(for="email") Email
-      br
-      input(type="email", name="email")
-      br
-      label(for="fechaNac") Fecha de Nacimiento
-      br
-      input(type="date", name="fechaNac")
-      br
-      label(for="genero") Genero
-      br
-      select(name='opciones')
-        option(value='Masculino') Masculino
-        option(value='Femenino') Femenino
-        option(value='Otro') Otro
-      br
-      label(for="direccion") Direccion
-      br
-      input(type="text", name="direccion")
-      br
-      br
-      input(type="submit", value=" Iniciar Sesion ")
+  .container
+    .row.justify-content-center
+      .col-md-6
+        form.form-group(action="/registrar", method="post")
+          label(for="name" class="link-custom") Nombre
+          input.form-control(type="text", name="name", required)
+          
+          label(for="apellido" class="link-custom") Apellido
+          input.form-control(type="text", name="apellido", required)
+          
+          label(for="DNI" class="link-custom") DNI
+          input.form-control(type="text", name="DNI", required)
+          
+          label(for="telefono" class="link-custom") Telefono
+          input.form-control(type="text", name="telefono", required)
+          
+          label(for="contraseña" class="link-custom") Contraseña
+          input.form-control(type="password", name="password", required)
+          
+          label(for="email" class="link-custom") Email
+          input.form-control(type="email", name="email", required)
+          
+          label(for="fechaNac" class="link-custom") Fecha de Nacimiento
+          input.form-control(type="date", name="fechaNac", required)
+          
+          label(for="genero" class="link-custom") Genero
+          select.form-control(name='opciones', required)
+            option(value='Masculino') Masculino
+            option(value='Femenino') Femenino
+            option(value='Otro') Otro
+          
+          label(for="direccion" class="link-custom") Direccion
+          input.form-control(type="text", name="direccion", required)
+          
+          br
+          button.btn.btn-custom.btn-block(type="submit" value="Registrarse") Registrarse

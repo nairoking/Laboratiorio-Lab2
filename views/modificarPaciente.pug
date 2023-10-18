@@ -1,0 +1,64 @@
+head
+  title Registro
+include includes/header
+body
+  .container
+    h1.link-custom Información del Paciente
+
+    form(action="/guardarCambios", method="post")
+      .form-group
+        label(for="id" class="link-custom") ID
+        input.form-control(type="text", name="id", value=paciente.id, readonly)
+        br
+      .form-group
+        label(for="contrasena" class="link-custom") Contraseña
+        input.form-control(type="password", name="contrasena", value=paciente.contrasena)
+        br
+
+      .form-group
+        label(for="email" class="link-custom") Email
+        input.form-control(type="email", name="email", value=paciente.email)
+        br
+
+      .form-group
+        label(for="nombre" class="link-custom") Nombre
+        input.form-control(type="text", name="nombre", value=paciente.nombre)
+        br
+
+      .form-group
+        label(for="apellido" class="link-custom") Apellido
+        input.form-control(type="text", name="apellido", value=paciente.apellido)
+        br
+
+      .form-group
+        label(for="dni" class="link-custom") DNI
+        input.form-control(type="text", name="dni", value=paciente.dni)
+        br
+
+      .form-group
+        label(for="fechaNacimiento" class="link-custom") Fecha de Nacimiento
+        input.form-control(type="date", name="fechaNacimiento", value=paciente.fechaNacimiento)
+        br
+
+      .form-group
+        label(for="genero" class="link-custom") Género
+        input.form-control(type="text", name="genero", value=paciente.genero)
+        br
+
+      .form-group
+        label(for="telefono" class="link-custom") Teléfono
+        input.form-control(type="text", name="telefono", value=paciente.telefono)
+        br
+
+      .form-group
+        label(for="rol" class="link-custom") Rol
+        input.form-control(type="text", name="rol", value=paciente.rol)
+        br
+
+      .form-group
+        label(for="direccion" class="link-custom") Dirección
+        input.form-control(type="text", name="direccion", value=paciente.direccion)
+        br
+
+      .form-group
+        button.btn.btn-custom(type="submit") Guardar Cambios

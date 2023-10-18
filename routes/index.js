@@ -19,8 +19,12 @@ router.get('/registro', function(req, res, next) {
   res.render('registro', { title: 'Express' });
 });
 
-router.get('/pacientes', pacienteController.listar);
 
+router.get('/pacientes', pacienteController.listar);//listar todos los pacientes
+router.get('/buscar', pacienteController.buscarPorDNI);//buscar por dni
+router.post('/registrar', pacienteController.registrarPaciente);//añta de paciente
+router.get('/modificarPaciente/:id', pacienteController.mostrarDatosPaciente);//selecciona un paciente para modificar
+router.post('/guardarCambios', pacienteController.actualizarPaciente);//guarda la modificacion
 
 // Ruta para manejar la solicitud POST del formulario
 router.post('/registrar', (req, res) => {

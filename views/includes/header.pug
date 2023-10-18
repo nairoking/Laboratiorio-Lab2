@@ -6,17 +6,17 @@ head
             img(src='/public/images/logo.png'  alt='logo' srcset='' width='auto' height='140')
         ul.nav.nav-pills
             li.nav-item
-                a.nav-link.active(href='/' aria-current='page') Inicio
+                a.nav-link(href='/' aria-current='page' class="link-custom") Inicio
             li.nav-item
-                a.nav-link(href='#') Contacto
+                a.nav-link(href='/pacientes' class="link-custom") Pacientes
             li.nav-item
-                a.nav-link(href='#') Resultado online
+                a.nav-link(href='/registro' class="link-custom") Nuevo Paciente
             li.nav-item
-                a.nav-link(href='#') Perfil
+                a.nav-link(href='#' class="link-custom") Perfil
             li.nav-item
-                a.nav-link(href='/login') prueba login
+                a.nav-link(href='/login' class="link-custom") Login
             li.nav-item
-                a.nav-link(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal') Login/Registro
+                a.nav-link(type='button' data-bs-toggle='modal' data-bs-target='#exampleModal' class="link-custom" ) Login/Registro
     body 
         #exampleModal.modal.fade(tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true')
             .modal-dialog
