@@ -14,7 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Bioquimico.init({
-    id: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     contrasena: DataTypes.STRING,
     email: DataTypes.STRING,
     nombre: DataTypes.STRING,
