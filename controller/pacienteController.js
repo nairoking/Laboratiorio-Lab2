@@ -19,10 +19,11 @@ module.exports = {
       const paciente = await Paciente.findOne({ where: { dni } });
 
       if (!paciente) {
-        return res.render('error', { error: 'Paciente no encontrado' });
+        return res.render('pacientes', { pacientes: [] });
+        //return res.render('error', { error: 'Paciente no encontrado' });
       }
 
-      return res.render('pacientes', { pacientes: paciente });
+      return res.render('pacientes', { pacientes: [paciente] });
     } catch (error) {
       res.render('error', { error });
     }

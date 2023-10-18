@@ -37,7 +37,7 @@ body
 
       .form-group
         label(for="fechaNacimiento" class="link-custom") Fecha de Nacimiento
-        input.form-control(type="date", name="fechaNacimiento", value=paciente.fechaNacimiento)
+        input.form-control(type="date", name="fechaNacimiento", value=paciente.fechaNacimiento.toISOString().split('T')[0])
         br
 
       .form-group

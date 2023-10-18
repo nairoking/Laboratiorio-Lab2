@@ -3,31 +3,30 @@ head
   include includes/header
 body
   div.container
-      h1.mb-4.link-custom Lista de Pacientes
-      // Formulario de búsqueda por DNI
-      form.form-inline.mb-100(action='/buscar', method='get')
-        .form-group
-          input.form-control.mr-2(type='text', name='dni', placeholder='Ingrese DNI') 
-          button.btn.btn-custom(type='submit') Buscar
+    h1.mb-4.link-custom Lista de Pacientes
+    // Formulario de búsqueda por DNI
+    form.form-inline.mb-100(action='/buscar', method='get')
+      .form-group
+        input.form-control.mr-2(type='text', name='dni', placeholder='Ingrese DNI') 
+        button.btn.btn-custom(type='submit') Buscar
           
-      table.table.table-striped.table-bordered
-        thead
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th(scope='col') Nombre
+          th(scope='col') Apellido
+          th(scope='col') Dni
+          th(scope='col') Telefono
+          th(scope='col') Email
+          th(scope='col') Dirección
+      tbody
+        each paciente in pacientes
           tr
-            th(scope='col') Nombre
-            th(scope='col') Apellido
-            th(scope='col') Dni
-            th(scope='col') Telefono
-            th(scope='col') Email
-            th(scope='col') Dirección
-        tbody
-          each paciente in pacientes
-            tr
-              td= paciente.nombre
-              td= paciente.apellido
-              td= paciente.dni 
-              td= paciente.telefono 
-              td= paciente.email 
-              td= paciente.direccion
-              td 
-                a.btn.btn-custom(href=`/modificarPaciente/${paciente.id}`) Editar
-              
+            td= paciente.nombre
+            td= paciente.apellido
+            td= paciente.dni 
+            td= paciente.telefono 
+            td= paciente.email 
+            td= paciente.direccion
+            td 
+              a.btn.btn-custom(href=`/modificarPaciente/${paciente.id}`) Editar
