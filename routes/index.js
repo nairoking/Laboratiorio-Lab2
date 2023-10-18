@@ -14,4 +14,14 @@ router.get('/buscador', function(req, res, next) {
   res.render('buscador', { title: 'Express' });
 });
 
+router.get('/registro', function(req, res, next) {
+  res.render('registro', { title: 'Express' });
+});
+
+// Ruta para manejar la solicitud POST del formulario
+router.get('/registrar', (req, res) => {
+  const nombre = req.body.name; // Recupera el dato del formulario
+  res.send('Hola');
+});
+
 module.exports = router;

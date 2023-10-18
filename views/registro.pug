@@ -1,0 +1,48 @@
+html
+  head
+    title Registro
+  include includes/header
+body
+  div.form-group
+    form(action="/registrar", method="get")
+      label(for="name") Nombre
+      br
+      input(type="text", name="name")
+      br
+      label(for="apellido") Apellido
+      br
+      input(type="text", name="apellido")
+      br
+      label(for="DNI") DNI
+      br
+      input(type="text", name="DNI")
+      br
+      label(for="telefono") Telefono
+      br
+      input(type="text", name="telefono")
+      br
+      label(for="contraseña") Contraseña
+      br
+      input(type="contraseña", name="password")
+      br
+      label(for="email") Email
+      br
+      input(type="email", name="email")
+      br
+      label(for="fechaNac") Fecha de Nacimiento
+      br
+      input(type="date", name="fechaNac")
+      br
+      label(for="genero") Genero
+      br
+      select(name='opciones')
+        option(value='Masculino') Masculino
+        option(value='Femenino') Femenino
+        option(value='Otro') Otro
+      br
+      label(for="direccion") Direccion
+      br
+      input(type="text", name="direccion")
+      br
+      br
+      input(type="submit", value=" Iniciar Sesion ")

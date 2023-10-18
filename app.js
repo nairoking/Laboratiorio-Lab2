@@ -1,12 +1,11 @@
 
-
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const Sequelize = require('sequelize');
-
+const bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -32,7 +31,6 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-
 // coneccion a la base
 var seq = new Sequelize('laboratorio_integrador','root','',{
   host:'localhost',
@@ -44,7 +42,8 @@ seq.authenticate()
   console.log('contectado a la base')
 }).catch(err =>{
   console.log('no se conecto '+ err);
-})
+});
+
 
 
 
@@ -58,5 +57,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;
