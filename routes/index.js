@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var pacienteController = require("../controller/pacienteController");
+var pacienteController = require("../controller/pacienteController.js");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -23,9 +23,9 @@ router.get('/pacientes', pacienteController.listar);
 
 
 // Ruta para manejar la solicitud POST del formulario
-router.get('/registrar', (req, res) => {
+router.post('/registrar', (req, res) => {
   const nombre = req.body.name; // Recupera el dato del formulario
-  res.send('Hola');
+  res.send(`Hola ${nombre}`);
 });
 
 module.exports = router;

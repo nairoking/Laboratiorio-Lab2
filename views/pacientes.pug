@@ -1,7 +1,6 @@
-html
-  head
-    title Pacientes
+head
+  title Pacientes
   include includes/header
 body
-    foreach(Paciente in pacientes)
-        h1(Paciente.name)
+  each paciente in pacientes
+    h1= paciente.nombre + ' ' + paciente.apellido

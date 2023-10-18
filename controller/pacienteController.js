@@ -1,24 +1,25 @@
-const Paciente = require('../models').Paciente;  // Importa el modelo Paciente
+const {Paciente} = require('../models');  // Importa el modelo Paciente
 
 module.exports = {
-  // Métodos para manipular el modelo Usuario
-  async getAll(req, res) {
+  // Método para listar todos los pacientes
+  async listar(req, res) {
     try {
-      const pacientes = await Usuario.findAll();
-      res.json(pacientes);
+      const pacientes = await Paciente.findAll();
+      res.render("pacientes", { pacientes: pacientes });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.render("error", { error: error });
     }
   },
 
+  // Método para obtener un paciente por su ID
   async getById(req, res) {
     const { id } = req.params;
     try {
-      const usuario = await Usuario.findByPk(id);
-      if (usuario) {
-        res.json(usuario);
+      const paciente = await Paciente.findByPk(id);
+      if (paciente) {
+        res.json(paciente);
       } else {
-        res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        res.status(404).json({ mensaje: 'Paciente no encontrado' });
       }
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -27,11 +28,3 @@ module.exports = {
 
   // Agrega más métodos según sea necesario para tu aplicación
 };
-
-exports.listar = function(req,res){
-    Paciente.findAll()
-        .then((pacientes) => {
-            res.render("pacientes", {pacientes:pacientes})
-        })
-    .catch((err)=> res.render("error",{error:err}));
-}
