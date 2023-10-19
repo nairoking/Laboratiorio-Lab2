@@ -44,7 +44,7 @@ seq.authenticate()
   console.log('no se conecto '+ err);
 });
 
-
+ 
 
 
 // error handler
