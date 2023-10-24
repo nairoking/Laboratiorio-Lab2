@@ -1,0 +1,16 @@
+head
+  title Registro
+include includes/header
+body
+    block content
+    .container.mt-5
+        .row.justify-content-center
+        .col-md-6
+            h2.text-center.mb-4 Editar Examen
+
+            form.form-group(action=`/examenes/${examen.id}`, method="POST")
+                input(type="hidden", name="_method", value="PUT")
+                label(for="nombre" class="link-custom") Nombre del Examen
+                input.form-control(type="text", name="nombre", value=examen.nombre, required)
+                button.btn.btn-custom.btn-block(type="submit" value="Guardar Cambios") Guardar Cambios
+

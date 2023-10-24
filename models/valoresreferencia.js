@@ -19,7 +19,14 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    determinacionId: DataTypes.INTEGER,
+    determinacionId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Determinacions', // Nombre de la tabla de Determinacion
+        key: 'id'
+      }
+    }, 
     rango_min: DataTypes.FLOAT,
     rango_max: DataTypes.FLOAT
   }, {

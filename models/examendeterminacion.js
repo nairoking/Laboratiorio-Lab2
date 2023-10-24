@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      
+
     }
   }
   ExamenDeterminacion.init({
@@ -20,10 +22,12 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     examenId: DataTypes.INTEGER,
+    
     determinacionId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'ExamenDeterminacion',
+    tableName: 'examendeterminacions',
   });
   return ExamenDeterminacion;
 };

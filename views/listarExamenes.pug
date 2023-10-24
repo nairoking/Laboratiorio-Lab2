@@ -1,0 +1,27 @@
+html
+  head
+    title Home
+  include includes/header
+body
+    block content
+    
+    h1.mb-4.link-custom Lista de Exámenes
+    a.btn.btn-custom(href="/examenes/crear") Crear Examen
+    br
+    br
+
+    table.table.table-bordered.table-striped
+        thead.thead-dark
+          tr
+            th Nombre
+            th Acciones
+        tbody
+          each examen in examenes
+            tr
+              td= examen.nombre
+              td
+                  a.btn.btn-info(href=`/examenes/${examen.id}/editar`) Editar
+                  a.btn.btn-secondary(href=`/examenes/${examen.id}/detalles`) Ver Determinaciones
+                  form(style='display:inline', action=`/examenes/${examen.id}`, method='POST')
+                  input(type='hidden', name='_method', value='DELETE')
+                  button.btn.btn-danger(type='submit') Eliminar

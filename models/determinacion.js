@@ -11,9 +11,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Determinacion.belongsTo(models.Examen, { foreignKey: 'examenId' });
+     
+      Determinacion.hasMany(models.ExamenDeterminacion, { foreignKey: 'determinacionId' });
+      Determinacion.belongsToMany(models.Examen, { through: 'ExamenDeterminacion', foreignKey: 'determinacionId' });
+
 
       // Asociación con ValoresReferencia
       Determinacion.hasMany(models.ValoresReferencia, { foreignKey: 'determinacionId' });
+    
+
     }
   }
   Determinacion.init({

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .container.mt-5
+    .row.justify-content-center
+      .col-md-8
+        h2.text-center.mb-4 Detalles de Determinaciones
+
+        if determinaciones.length > 0
+          table.table.table-bordered.table-striped
+            thead.thead-dark
+              tr
+                th Examen
+                th Determinación
+
+            tbody
+              each determinacion in determinaciones
+                tr
+                  td= determinacion.Examen.nombre
+                  td= determinacion.Determinacion.nombre
+        else
+          p No se encontraron determinaciones para este examen.
