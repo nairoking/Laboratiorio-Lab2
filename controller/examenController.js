@@ -1,13 +1,31 @@
 const db = require('../models');
 
-const mostrarFormCrearExamen = (req, res) => {
-  res.render('crearExamen');
+const mostrarFormCrearExamen = async (req, res) => {
+  try{
+     const tipoMuestras = await db.TipoMuestra.findAll();
+     if (!tipoMuestras) 
+      {
+        return res.status(404).json({ mensaje: 'Examen no encontrado' });
+      }
+      
+
+      res.render('crearExamen', { tipoMuestras });
+      
+  }catch (error) {
+    res.status(500).json({ mensaje: 'Error al crear el examen', error: error.message });
+  }
+ 
+
+  
+  
 };
 
 const crearExamen = async (req, res) => {
   try {
-    const { nombre } = req.body;
-    await db.Examen.create({ nombre });
+    const { nombre,tipoMuestraId} = req.body;
+
+    const resultado = await db.Examen.create({ nombre ,tipoMuestraId});
+    //res.json({ nombre,tipoMuestraId });
     res.redirect('/examenes');
   } catch (error) {
     res.status(500).json({ mensaje: 'Error al crear el examen', error: error.message });
@@ -52,7 +70,8 @@ const actualizarExamen = async (req, res) => {
 const listarExamenes = async (req, res) => {
     try {
         const examenes = await db.Examen.findAll();
-        res.render('listarExamenes', { examenes });
+        const tipoMuestras = await db.TipoMuestra.findAll();
+        res.render('listarExamenes', { examenes , tipoMuestras });
       } catch (error) {
         res.status(500).json({ mensaje: 'Error al obtener la lista de exámenes', error: error.message });
       }

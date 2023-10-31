@@ -2,18 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Examens', {
+    await queryInterface.createTable('OrdenTrabajos', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      nombre: {
-        type: Sequelize.STRING
-      },
-      tipoMuestraId:{
+      pacienteId: {
         type: Sequelize.INTEGER
+      },
+      estadoId: {
+        type: Sequelize.INTEGER
+      },
+      bioquimicoId: {
+        type: Sequelize.INTEGER
+      },
+      examenId: {
+        type: Sequelize.INTEGER
+      },
+      muestraId: {
+        type: Sequelize.INTEGER
+      },
+      fecha: {
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,
@@ -26,6 +38,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Examens');
+    await queryInterface.dropTable('OrdenTrabajos');
   }
 };

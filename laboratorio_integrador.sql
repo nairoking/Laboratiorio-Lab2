@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-10-2023 a las 04:45:31
+-- Tiempo de generación: 31-10-2023 a las 16:40:51
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -73,6 +73,19 @@ INSERT INTO `determinacions` (`id`, `nombre`, `unidadMedida`, `createdAt`, `upda
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `estados`
+--
+
+CREATE TABLE `estados` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `examendeterminacions`
 --
 
@@ -105,15 +118,19 @@ CREATE TABLE `examens` (
   `id` int(11) NOT NULL,
   `nombre` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL
+  `updatedAt` datetime NOT NULL,
+  `tipoMuestraId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `examens`
 --
 
-INSERT INTO `examens` (`id`, `nombre`, `createdAt`, `updatedAt`) VALUES
-(1, 'Hemograma Completo', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `examens` (`id`, `nombre`, `createdAt`, `updatedAt`, `tipoMuestraId`) VALUES
+(1, 'Hemograma Completo', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(5, 'examen 8', '2023-10-31 12:11:12', '2023-10-31 12:11:12', 2),
+(6, 'examen 10', '2023-10-31 13:24:44', '2023-10-31 13:24:44', 1),
+(12, 'examen 20', '2023-10-31 13:48:35', '2023-10-31 13:48:35', 2);
 
 -- --------------------------------------------------------
 
@@ -128,6 +145,24 @@ CREATE TABLE `muestras` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `pacienteId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ordentrabajos`
+--
+
+CREATE TABLE `ordentrabajos` (
+  `id` int(11) NOT NULL,
+  `pacienteId` int(11) DEFAULT NULL,
+  `estadoId` int(11) DEFAULT NULL,
+  `bioquimicoId` int(11) DEFAULT NULL,
+  `examenId` int(11) DEFAULT NULL,
+  `muestraId` int(11) DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -158,8 +193,8 @@ CREATE TABLE `pacientes` (
 --
 
 INSERT INTO `pacientes` (`id`, `contrasena`, `email`, `nombre`, `apellido`, `dni`, `fechaNacimiento`, `genero`, `telefono`, `rol`, `direccion`, `createdAt`, `updatedAt`, `deletedAt`) VALUES
-(1, '1234', 'miguel@mail.com', 'miguel', 'quintana', '12345678', '0000-00-00 00:00:00', 'hombre', '2665107439', 2, 'mi casa', '2023-10-18 03:28:14', '2023-10-18 06:27:57', NULL),
-(3, '33333', 'mail3@mail.com', 'marcos', 'lopez', '88999777', '2003-05-13 01:44:04', 'hombre', '2665112233', 2, 'su casa', '2023-10-18 06:44:03', '2023-10-18 06:44:03', NULL),
+(1, '1234', 'miguel@mail.com', 'miguel', 'quintana', '12345678', '0000-00-00 00:00:00', 'hombre', '2665107439', 0, 'mi casa', '2023-10-18 03:28:14', '2023-10-18 06:27:57', NULL),
+(3, '33333', 'mail3@mail.com', 'marcos', 'lopez', '88999777', '2003-05-13 01:44:04', 'hombre', '2665112233', 0, 'su casa', '2023-10-18 06:44:03', '2023-10-18 06:44:03', NULL),
 (4, NULL, 'pedro@mail.com', 'pedro', 'picapiedra', '11222333', NULL, NULL, '2664454545', NULL, 'la casa de piedra', '2023-10-18 05:54:34', '2023-10-18 05:54:34', NULL),
 (5, NULL, 'antonio@mail.com', 'antonio', 'picapiedra', '11222334', NULL, NULL, '2664454545', NULL, 'la casa de piedra', '2023-10-18 05:56:19', '2023-10-18 05:56:19', NULL);
 
@@ -211,7 +246,33 @@ INSERT INTO `sequelizemeta` (`name`) VALUES
 ('20231019192828-create-valores-referencia.js'),
 ('20231019192849-create-examen.js'),
 ('20231019192910-create-muestra.js'),
-('20231019194857-create-examen-determinacion.js');
+('20231019194857-create-examen-determinacion.js'),
+('20231019195659-agregar-claves-foraneas.js'),
+('20231031110110-create-tipo-muestra.js'),
+('20231031111324-create-estado.js'),
+('20231031112018-create-orden-trabajo.js'),
+('20231031133847-add_nuevoAtributo_to_examen.js');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipomuestras`
+--
+
+CREATE TABLE `tipomuestras` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(255) DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `tipomuestras`
+--
+
+INSERT INTO `tipomuestras` (`id`, `nombre`, `createdAt`, `updatedAt`) VALUES
+(1, 'sangre', '2023-10-31 13:16:08', '2023-10-31 13:16:08'),
+(2, 'orina', '2023-10-31 13:16:08', '2023-10-31 13:16:08');
 
 -- --------------------------------------------------------
 
@@ -223,6 +284,7 @@ CREATE TABLE `valoresreferencia` (
   `id` int(11) NOT NULL,
   `rango_min` float DEFAULT NULL,
   `rango_max` float DEFAULT NULL,
+  `descripcion` varchar(30) NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `determinacionId` int(11) NOT NULL
@@ -232,12 +294,12 @@ CREATE TABLE `valoresreferencia` (
 -- Volcado de datos para la tabla `valoresreferencia`
 --
 
-INSERT INTO `valoresreferencia` (`id`, `rango_min`, `rango_max`, `createdAt`, `updatedAt`, `determinacionId`) VALUES
-(6, 12, 18, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
-(7, 36, 54, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2),
-(8, 4.2, 6.3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
-(9, 4.5, 11, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4),
-(10, 150, 450, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5);
+INSERT INTO `valoresreferencia` (`id`, `rango_min`, `rango_max`, `descripcion`, `createdAt`, `updatedAt`, `determinacionId`) VALUES
+(6, 12, 18, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1),
+(7, 36, 54, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 2),
+(8, 4.2, 6.3, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 3),
+(9, 4.5, 11, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 4),
+(10, 150, 450, '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 5);
 
 --
 -- Índices para tablas volcadas
@@ -247,6 +309,12 @@ INSERT INTO `valoresreferencia` (`id`, `rango_min`, `rango_max`, `createdAt`, `u
 -- Indices de la tabla `determinacions`
 --
 ALTER TABLE `determinacions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `estados`
+--
+ALTER TABLE `estados`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -272,6 +340,12 @@ ALTER TABLE `muestras`
   ADD KEY `pacienteId` (`pacienteId`);
 
 --
+-- Indices de la tabla `ordentrabajos`
+--
+ALTER TABLE `ordentrabajos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
@@ -292,6 +366,12 @@ ALTER TABLE `sequelizemeta`
   ADD UNIQUE KEY `name` (`name`);
 
 --
+-- Indices de la tabla `tipomuestras`
+--
+ALTER TABLE `tipomuestras`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `valoresreferencia`
 --
 ALTER TABLE `valoresreferencia`
@@ -309,6 +389,12 @@ ALTER TABLE `determinacions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT de la tabla `estados`
+--
+ALTER TABLE `estados`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `examendeterminacions`
 --
 ALTER TABLE `examendeterminacions`
@@ -318,12 +404,18 @@ ALTER TABLE `examendeterminacions`
 -- AUTO_INCREMENT de la tabla `examens`
 --
 ALTER TABLE `examens`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `muestras`
 --
 ALTER TABLE `muestras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `ordentrabajos`
+--
+ALTER TABLE `ordentrabajos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -337,6 +429,12 @@ ALTER TABLE `pacientes`
 --
 ALTER TABLE `rols`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `tipomuestras`
+--
+ALTER TABLE `tipomuestras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `valoresreferencia`
@@ -361,12 +459,6 @@ ALTER TABLE `examendeterminacions`
 ALTER TABLE `muestras`
   ADD CONSTRAINT `muestras_ibfk_1` FOREIGN KEY (`examenId`) REFERENCES `examens` (`id`),
   ADD CONSTRAINT `muestras_ibfk_2` FOREIGN KEY (`pacienteId`) REFERENCES `pacientes` (`id`);
-
---
--- Filtros para la tabla `pacientes`
---
-ALTER TABLE `pacientes`
-  ADD CONSTRAINT `pacientes_ibfk_1` FOREIGN KEY (`rol`) REFERENCES `rols` (`id`);
 
 --
 -- Filtros para la tabla `valoresreferencia`

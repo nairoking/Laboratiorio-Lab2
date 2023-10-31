@@ -14,11 +14,15 @@ body
         thead.thead-dark
           tr
             th Nombre
+            th Tipo de Muestra
             th Acciones
         tbody
           each examen in examenes
             tr
               td= examen.nombre
+              td 
+                - let tipoMuestra = tipoMuestras.find(t => t.id === examen.tipoMuestraId) 
+                = tipoMuestra ? tipoMuestra.nombre : 'Sin Tipo de Muestra'
               td
                   a.btn.btn-info(href=`/examenes/${examen.id}/editar`) Editar
                   a.btn.btn-secondary(href=`/examenes/${examen.id}/detalles`) Ver Determinaciones

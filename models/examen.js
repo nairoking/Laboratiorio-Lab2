@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Examen.belongsToMany(models.Determinacion, { through: 'ExamenDeterminacion', foreignKey: 'examenId' });
       Examen.belongsToMany(models.ExamenDeterminacion, { through: models.ExamenDeterminacion });
       Examen.hasMany(models.ExamenDeterminacion, { foreignKey: 'examenId' });
+      Examen.belongsTo(models.TipoMuestra, { foreignKey: 'tipoMuestraId' });
 
       // Asociación con Muestra (one-to-many)
       Examen.hasMany(models.Muestra, { foreignKey: 'examenId' });
@@ -25,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    nombre: DataTypes.STRING
+    nombre: DataTypes.STRING,
+    tipoMuestraId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Examen',

@@ -11,9 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Paciente.hasMany(models.Rol,{
-        foreignKey: 'rol'
-      })
+      Paciente.hasMany(models.Rol)
+      Paciente.hasMany(models.OrdenTrabajo)
     }
   }
   Paciente.init({
