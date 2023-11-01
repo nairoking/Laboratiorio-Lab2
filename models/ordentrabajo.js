@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       OrdenTrabajo.belongsTo(models.Estado);
       OrdenTrabajo.belongsTo(models.Paciente);
       OrdenTrabajo.belongsTo(models.Bioquimico);
-      OrdenTrabajo.hasOne(models.Muestra);
+      OrdenTrabajo.belongsTo(models.Muestra);
     }
   }
   OrdenTrabajo.init({

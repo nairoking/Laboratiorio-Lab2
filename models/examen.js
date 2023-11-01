@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       Examen.belongsToMany(models.Determinacion, { through: 'ExamenDeterminacion', foreignKey: 'examenId' });
       Examen.belongsToMany(models.ExamenDeterminacion, { through: models.ExamenDeterminacion });
       Examen.hasMany(models.ExamenDeterminacion, { foreignKey: 'examenId' });
-      Examen.belongsTo(models.TipoMuestra, { foreignKey: 'tipoMuestraId' });
+      Examen.belongsTo(models.TipoMuestra)
+      
 
       // Asociación con Muestra (one-to-many)
-      Examen.hasMany(models.Muestra, { foreignKey: 'examenId' });
     }
   }
   Examen.init({

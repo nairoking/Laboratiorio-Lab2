@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Muestra.belongsTo(models.Examen, { foreignKey: 'examenId' });
-      Muestra.hasOne(models.OrdenTrabajo)
+      
+      
     }
   }
   Muestra.init({
@@ -22,8 +22,8 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     pacienteId:DataTypes.INTEGER,
-    examenId: DataTypes.INTEGER,
-    tipo: DataTypes.STRING
+    fechaToma: DataTypes.DATE,
+    tipoMuestraId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Muestra',

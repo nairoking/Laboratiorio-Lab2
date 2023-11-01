@@ -3,6 +3,7 @@ var router = express.Router();
 var pacienteController = require("../controller/pacienteController.js");
 const examen = require('../models/examen.js');
 var examenController = require("../controller/examenController.js");
+var ordenTrabajoController = require("../controller/ordenTrabajoController.js");
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -28,12 +29,15 @@ router.post('/registrar', pacienteController.registrarPaciente);//añta de pacie
 router.get('/modificarPaciente/:id', pacienteController.mostrarDatosPaciente);//selecciona un paciente para modificar
 router.post('/guardarCambios', pacienteController.actualizarPaciente);//guarda la modificacion
 
+router.get('/ordenes/crear', ordenTrabajoController.cargarfrmOrdenTrabajo);//Cargar la vista para nueva orden de trabajo
+router.post('/ordenTrabajo/crear', ordenTrabajoController.crearOrdenTrabajo);//Alta de orden de trabajo
 
-router.get('/examenes', examenController.listarExamenes);
-router.get('/examenes/crear', examenController.mostrarFormCrearExamen);
-router.post('/examenes/crear', examenController.crearExamen);
-router.get('/examenes/:id/editar', examenController.mostrarFormEditarExamen);
-router.post('/examenes/:id', examenController.actualizarExamen);
+
+router.get('/examenes', examenController.listarExamenes);// muestra todos los examenes
+router.get('/examenes/crear', examenController.mostrarFormCrearExamen);// carga el formulario para una alta de examen
+router.post('/examenes/crear', examenController.crearExamen);//guarda los datos del nuevo examen
+router.get('/examenes/:id/editar', examenController.mostrarFormEditarExamen);//carga los datos a editar en un formulario
+router.post('/examenes/:id', examenController.actualizarExamen);//guarda los datos actualizados
 router.get('/examenes/:id/detalles', examenController.verDetalles);
 router.get('/:id/detalles', examenController.verDeterminaciones);
 

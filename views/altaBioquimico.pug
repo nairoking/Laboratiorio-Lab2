@@ -1,0 +1,34 @@
+head
+  title Bioquimicos
+  include includes/header
+body
+  div.container
+    h1.mb-4.link-custom Lista de Bioquimicos
+    // Formulario de búsqueda por DNI
+    form.form-inline.mb-100(action='/buscarBioquimico', method='get')
+      .form-group
+        input.form-control.mr-2(type='text', name='dni', placeholder='Ingrese DNI') 
+        button.btn.btn-custom(type='submit') Buscar
+          
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th(scope='col') Nombre
+          th(scope='col') Apellido
+          th(scope='col') Dni
+          th(scope='col') Telefono
+          th(scope='col') Email
+          th(scope='col') Dirección
+          th(scope='col') Matricula
+      tbody
+        each Bioquimico in bioquimicos
+          tr
+            td= Bioquimico.nombre
+            td= Bioquimico.apellido
+            td= Bioquimico.dni 
+            td= Bioquimico.telefono 
+            td= Bioquimico.email 
+            td= Bioquimico.direccion
+            td= Bioquimico.matricula
+            td 
+              a.btn.btn-custom(href=`/modificarBioquimico/${Bioquimico.id}`) Editar

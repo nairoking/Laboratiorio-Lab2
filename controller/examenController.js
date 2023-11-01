@@ -2,7 +2,7 @@ const db = require('../models');
 
 const mostrarFormCrearExamen = async (req, res) => {
   try{
-     const tipoMuestras = await db.TipoMuestra.findAll();
+         const tipoMuestras = await db.TipoMuestra.findAll();
      if (!tipoMuestras) 
       {
         return res.status(404).json({ mensaje: 'Examen no encontrado' });

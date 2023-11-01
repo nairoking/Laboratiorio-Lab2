@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-10-2023 a las 16:40:51
+-- Tiempo de generación: 01-11-2023 a las 02:19:07
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bioquimicos` (
-  `id` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL,
   `contrasena` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `nombre` varchar(255) DEFAULT NULL,
@@ -38,12 +38,20 @@ CREATE TABLE `bioquimicos` (
   `genero` varchar(255) DEFAULT NULL,
   `telefono` varchar(255) DEFAULT NULL,
   `direccion` varchar(255) DEFAULT NULL,
-  `rol` varchar(255) DEFAULT NULL,
+  `rol` int(11) DEFAULT NULL,
   `numeroMatricula` varchar(255) DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `deletedAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `bioquimicos`
+--
+
+INSERT INTO `bioquimicos` (`id`, `contrasena`, `email`, `nombre`, `apellido`, `dni`, `fechaNacimiento`, `genero`, `telefono`, `direccion`, `rol`, `numeroMatricula`, `createdAt`, `updatedAt`, `deletedAt`) VALUES
+(1, '4321', 'juan@mail.com', 'juan', 'lopez', '38755899', '1994-10-02 17:56:36', 'Hombre', '2665455889', 'la casa de juan', 3, 'bqm166', '2023-10-31 21:56:36', '2023-10-31 21:56:36', NULL),
+(3, '9876', 'marcos@mail.com', 'marcos', 'perez', '39899788', '1995-07-19 18:03:01', 'Hombre', '2665825865', '25 de mayo', 3, 'bqm999', '2023-10-31 22:03:00', '2023-10-31 22:03:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -82,6 +90,16 @@ CREATE TABLE `estados` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `estados`
+--
+
+INSERT INTO `estados` (`id`, `nombre`, `createdAt`, `updatedAt`) VALUES
+(1, 'Analítica', '2023-11-01 01:06:15', '2023-11-01 01:06:15'),
+(2, 'Pre Informe', '2023-11-01 01:06:15', '2023-11-01 01:06:15'),
+(3, 'Para Validar', '2023-11-01 01:08:11', '2023-11-01 01:08:11'),
+(4, 'Informada', '2023-11-01 01:08:11', '2023-11-01 01:08:11');
 
 -- --------------------------------------------------------
 
@@ -140,12 +158,19 @@ INSERT INTO `examens` (`id`, `nombre`, `createdAt`, `updatedAt`, `tipoMuestraId`
 
 CREATE TABLE `muestras` (
   `id` int(11) NOT NULL,
-  `tipo` varchar(255) DEFAULT NULL,
-  `examenId` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  `pacienteId` int(11) NOT NULL
+  `pacienteId` int(11) NOT NULL,
+  `fechaToma` datetime DEFAULT NULL,
+  `tipoMuestraId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `muestras`
+--
+
+INSERT INTO `muestras` (`id`, `createdAt`, `updatedAt`, `pacienteId`, `fechaToma`, `tipoMuestraId`) VALUES
+(1, '2023-11-01 01:05:14', '2023-11-01 01:05:14', 1, '2023-10-31 21:05:14', 1);
 
 -- --------------------------------------------------------
 
@@ -164,6 +189,14 @@ CREATE TABLE `ordentrabajos` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ordentrabajos`
+--
+
+INSERT INTO `ordentrabajos` (`id`, `pacienteId`, `estadoId`, `bioquimicoId`, `examenId`, `muestraId`, `fecha`, `createdAt`, `updatedAt`) VALUES
+(1, 1, 1, 1, 1, 1, '2023-10-31 00:00:00', '2023-11-01 00:43:09', '2023-11-01 00:43:09'),
+(2, 4, 2, 3, 12, 1, '2023-10-31 00:00:00', '2023-11-01 01:05:11', '2023-11-01 01:05:11');
 
 -- --------------------------------------------------------
 
@@ -251,7 +284,8 @@ INSERT INTO `sequelizemeta` (`name`) VALUES
 ('20231031110110-create-tipo-muestra.js'),
 ('20231031111324-create-estado.js'),
 ('20231031112018-create-orden-trabajo.js'),
-('20231031133847-add_nuevoAtributo_to_examen.js');
+('20231031133847-add_nuevoAtributo_to_examen.js'),
+('20231031205200-modificar-muestra.js');
 
 -- --------------------------------------------------------
 
@@ -306,6 +340,12 @@ INSERT INTO `valoresreferencia` (`id`, `rango_min`, `rango_max`, `descripcion`, 
 --
 
 --
+-- Indices de la tabla `bioquimicos`
+--
+ALTER TABLE `bioquimicos`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `determinacions`
 --
 ALTER TABLE `determinacions`
@@ -336,8 +376,8 @@ ALTER TABLE `examens`
 --
 ALTER TABLE `muestras`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `examenId` (`examenId`),
-  ADD KEY `pacienteId` (`pacienteId`);
+  ADD KEY `pacienteId` (`pacienteId`),
+  ADD KEY `tipoMuestra` (`tipoMuestraId`);
 
 --
 -- Indices de la tabla `ordentrabajos`
@@ -383,6 +423,12 @@ ALTER TABLE `valoresreferencia`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `bioquimicos`
+--
+ALTER TABLE `bioquimicos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `determinacions`
 --
 ALTER TABLE `determinacions`
@@ -392,7 +438,7 @@ ALTER TABLE `determinacions`
 -- AUTO_INCREMENT de la tabla `estados`
 --
 ALTER TABLE `estados`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `examendeterminacions`
@@ -410,13 +456,13 @@ ALTER TABLE `examens`
 -- AUTO_INCREMENT de la tabla `muestras`
 --
 ALTER TABLE `muestras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `ordentrabajos`
 --
 ALTER TABLE `ordentrabajos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pacientes`
@@ -457,8 +503,8 @@ ALTER TABLE `examendeterminacions`
 -- Filtros para la tabla `muestras`
 --
 ALTER TABLE `muestras`
-  ADD CONSTRAINT `muestras_ibfk_1` FOREIGN KEY (`examenId`) REFERENCES `examens` (`id`),
-  ADD CONSTRAINT `muestras_ibfk_2` FOREIGN KEY (`pacienteId`) REFERENCES `pacientes` (`id`);
+  ADD CONSTRAINT `muestras_ibfk_2` FOREIGN KEY (`pacienteId`) REFERENCES `pacientes` (`id`),
+  ADD CONSTRAINT `muestras_ibfk_3` FOREIGN KEY (`tipoMuestraId`) REFERENCES `tipomuestras` (`id`);
 
 --
 -- Filtros para la tabla `valoresreferencia`

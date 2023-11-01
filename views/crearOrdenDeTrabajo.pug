@@ -1,0 +1,73 @@
+head
+  title Crear Orden de Trabajo
+include includes/header
+
+body
+  .container.mt-5
+    h1.mb-4.link-custom Crear Orden de Trabajo
+
+    // Tabla de pacientes
+    table.table.table-striped.table-bordered
+      thead
+        tr
+          th(scope='col') Nombre
+          th(scope='col') Apellido
+          th(scope='col') DNI
+        tbody
+          each paciente in pacientes
+            tr
+              td= paciente.nombre
+              td= paciente.apellido
+              td= paciente.dni
+              td
+                // Botón para seleccionar paciente
+                button.btn.btn-custom(type='button', onclick=`seleccionarPaciente(${paciente.id}, '${paciente.nombre} ${paciente.apellido}')`) Seleccionar
+    
+    form.form-group(action="/ordenTrabajo/crear", method="post")
+
+      label(for="pacienteId" class="link-custom") Paciente
+      select.form-control(name="pacienteId", required)
+        each paciente in pacientes
+          option(value=paciente.id)= `${paciente.nombre} ${paciente.apellido}`
+      br
+
+      label(for="estadoId" class="link-custom") Estado
+      select.form-control(name="estadoId", required)
+        // Opciones de estados
+        each estado in estados
+          option(value=estado.id)= estado.nombre
+      br
+
+      label(for="bioquimicoId" class="link-custom") Bioquímico
+      select.form-control(name="bioquimicoId", required)
+        // Opciones de bioquímicos
+        each bioquimico in bioquimicos
+          option(value=bioquimico.id)= `${bioquimico.nombre} ${bioquimico.apellido}`
+      br
+
+      label(for="examenId" class="link-custom") Examen
+      select.form-control(name="examenId", required)
+        // Opciones de exámenes
+        each examen in examenes
+          option(value=examen.id)= examen.nombre
+      br
+
+      label(for="muestraId" class="link-custom") Muestra
+      select.form-control(name="muestraId", required)
+        // Opciones de muestras
+        each muestra in muestras
+          option(value=muestra.id)= muestra.nombre
+      br
+
+      label(for="fecha" class="link-custom") Fecha
+      input.form-control(type="date", name="fecha", required)
+      br
+
+      button.btn.btn-custom.btn-block(type="submit" value="Crear Orden de Trabajo") Crear Orden de Trabajo
+
+script.
+  function seleccionarPaciente(id, nombreCompleto) {
+    document.querySelector('[name="pacienteId"]').value = id;
+    alert(`Paciente seleccionado: ${nombreCompleto}`);
+  }
+
