@@ -1,0 +1,30 @@
+html
+  head
+    title Home
+  include includes/header
+body
+    block content
+    
+    h1.mb-4.link-custom Lista de Ordenes de Trabajo
+    a.btn.btn-custom(href="/ordenes/crear") Crear Orden
+    br
+    br
+
+    table.table.table-bordered.table-striped
+        thead.thead-dark
+          tr
+            th Id
+            th Paciente id
+            th estado 
+            th Bioquimico 
+            th Examen 
+            th Muestra 
+        tbody
+          each orden in ordenes
+            tr
+              td= ordenes.id
+              td= ordenes.pacienteId
+              td= ordenes.estadoId
+              td= ordenes.bioquimicoId
+              td= ordenes.examenId
+              //td= ordenes.muestraId

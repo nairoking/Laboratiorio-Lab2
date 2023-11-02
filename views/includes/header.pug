@@ -7,18 +7,30 @@ head
         ul.nav.nav-pills
             li.nav-item
                 a.nav-link(href='/' aria-current='page' class="link-custom") Inicio
-            li.nav-item
-                a.nav-link(href='/pacientes' class="link-custom") Pacientes
-            li.nav-item
-                a.nav-link(href='/registro' class="link-custom") Nuevo Paciente
-            li.nav-item
-                a.nav-link(href='#' class="link-custom") Perfil
-            li.nav-item
-                a.nav-link(href='/examenes' class="link-custom") Ver Examenes
-            li.nav-item
-                a.nav-link(href="/examenes/crear" class="link-custom") Crear Examen
-            li.nav-item
-                a.nav-link(href="/ordenes/crear" class="link-custom") Generar Orden
+            .dropdown.nav-item
+                a.btn.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                    | Pacientes
+                ul.dropdown-menu
+                        li.nav-item
+                            a.nav-link(href='/pacientes' class="link-custom") Ver Pacientes
+                        li.nav-item
+                            a.nav-link(href='/registro' class="link-custom") Nuevo Paciente
+            .dropdown.nav-item
+                a.btn.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                    | Examenes
+                ul.dropdown-menu
+                        li.nav-item
+                            a.nav-link(href='/examenes' class="link-custom") Ver Examenes
+                        li.nav-item
+                            a.nav-link(href="/examenes/crear" class="link-custom") Crear Examen
+            .dropdown.nav-item
+                a.btn.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+                    | Ordenes
+                ul.dropdown-menu
+                        li.nav-item
+                            a.nav-link(href="/ordenes/crear" class="link-custom") Generar Orden
+                        li.nav-item
+                            a.nav-link(href='/ordenTrabajo/listar' class="link-custom") Listar Ordenes
             li.nav-item
                 a.nav-link(href='/login' class="link-custom") Login
             li.nav-item

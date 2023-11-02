@@ -43,8 +43,22 @@ const crearOrdenTrabajo = async (req, res) => {
       return res.status(500).json({ mensaje: 'Error al crear la orden de trabajo.' });
     }
   };
-  
+
+const listarOrdenes = async (req, res) => {
+  try {
+      const ordenes = await db.OrdenTrabajo.findAll();
+      const pacientes = await db.Paciente.findAll();
+      const estados = await db.Estado.findAll();
+      const bioquimicos = await db.Bioquimico.findAll();
+      const examenes = await db.Examen.findAll();
+      const muestras = await db.Muestra.findAll();
+      res.render('listarOrdenes', { ordenes,pacientes , estados, bioquimicos, examenes, muestras});
+    } catch (error) {
+      res.status(500).json({ mensaje: 'Error al obtener la lista de Ordenes de trabajo', error: error.message });
+    }
+};
 
 
 
-module.exports = { cargarfrmOrdenTrabajo, crearOrdenTrabajo }
+
+module.exports = { cargarfrmOrdenTrabajo, crearOrdenTrabajo, listarOrdenes }

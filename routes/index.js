@@ -31,6 +31,7 @@ router.post('/guardarCambios', pacienteController.actualizarPaciente);//guarda l
 
 router.get('/ordenes/crear', ordenTrabajoController.cargarfrmOrdenTrabajo);//Cargar la vista para nueva orden de trabajo
 router.post('/ordenTrabajo/crear', ordenTrabajoController.crearOrdenTrabajo);//Alta de orden de trabajo
+router.get('/ordenTrabajo/listar', ordenTrabajoController.listarOrdenes);//Listar orden trabajo
 
 
 router.get('/examenes', examenController.listarExamenes);// muestra todos los examenes

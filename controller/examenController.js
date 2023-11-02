@@ -72,6 +72,7 @@ const listarExamenes = async (req, res) => {
         const examenes = await db.Examen.findAll();
         const tipoMuestras = await db.TipoMuestra.findAll();
         res.render('listarExamenes', { examenes , tipoMuestras });
+        //res.render('listarExam2', { examenes , tipoMuestras });
       } catch (error) {
         res.status(500).json({ mensaje: 'Error al obtener la lista de exámenes', error: error.message });
       }

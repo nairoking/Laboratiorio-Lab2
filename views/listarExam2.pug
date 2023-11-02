@@ -1,0 +1,26 @@
+html
+  head
+    title Tabla con datatable
+  body
+    table.table.table-bordered
+      thead
+        tr
+          th Id
+          th Nombre
+          th Apellido
+      tbody
+        tr
+          td 1
+          td Juan
+          td Pérez
+        tr
+          td 2
+          td María
+          td López
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.23/js/jquery.dataTables.min.js") 
+    script(
+        const table = ("table")
+        table.DataTable({
+            searching:true})
+    )
+        
