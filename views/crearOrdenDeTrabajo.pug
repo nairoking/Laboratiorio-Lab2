@@ -23,12 +23,20 @@ body
                 // Botón para seleccionar paciente
                 button.btn.btn-custom(type='button', onclick=`seleccionarPaciente(${paciente.id}, '${paciente.nombre} ${paciente.apellido}')`) Seleccionar
     
-    form.form-group(action="/ordenTrabajo/crear", method="post")
+    form.form-group(action="/ordenTrabajo/crear", method="post" class="formulario")
 
       label(for="pacienteId" class="link-custom") Paciente
       select.form-control(name="pacienteId", required)
         each paciente in pacientes
           option(value=paciente.id)= `${paciente.nombre} ${paciente.apellido}`
+      br
+
+      label(for="muestraId" class="link-custom") Código de Muestra
+      select.form-control(name="muestraId", required)
+        // Opciones de muestras
+        each muestra in muestras
+          option(value=muestra.id)= muestra.id
+          
       br
 
       label(for="estadoId" class="link-custom") Estado
@@ -52,12 +60,7 @@ body
           option(value=examen.id)= examen.nombre
       br
 
-      label(for="muestraId" class="link-custom") Muestra
-      select.form-control(name="muestraId", required)
-        // Opciones de muestras
-        each muestra in muestras
-          option(value=muestra.id)= muestra.nombre
-      br
+      
 
       label(for="fecha" class="link-custom") Fecha
       input.form-control(type="date", name="fecha", required)
@@ -67,7 +70,15 @@ body
 
 script.
   function seleccionarPaciente(id, nombreCompleto) {
+
+    let formulario = document.querySelector('.formulario');
+    formulario.style.display = 'block';
+
     document.querySelector('[name="pacienteId"]').value = id;
+    
+    // Filtrar las muestras correspondientes al paciente seleccionado
+   
+
     alert(`Paciente seleccionado: ${nombreCompleto}`);
   }
 

@@ -37,3 +37,6 @@
     border-color: #77BC1F !important; 
     box-shadow: 0 0 0 0.2rem rgba(20, 247, 28, 0.4) !important;
   }
+  .formulario {
+    display: none;
+  }

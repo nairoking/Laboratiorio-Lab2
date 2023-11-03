@@ -12,19 +12,30 @@ body
 
     table.table.table-bordered.table-striped
         thead.thead-dark
-          tr
-            th Id
-            th Paciente id
-            th estado 
-            th Bioquimico 
-            th Examen 
-            th Muestra 
+            tr
+              th Codigo 
+              th Paciente
+              th Estado
+              th Bioquímico
+              th Examen
+              th N° de Muestra
+
         tbody
           each orden in ordenes
             tr
-              td= ordenes.id
-              td= ordenes.pacienteId
-              td= ordenes.estadoId
-              td= ordenes.bioquimicoId
-              td= ordenes.examenId
-              //td= ordenes.muestraId
+              td #{orden.id}
+              td  
+                - let paciente = pacientes.find(t => t.id === orden.pacienteId) 
+                = paciente ? paciente.nombre + " " + paciente.apellido : 'Sin nombre'
+              td  
+                - let estado = estados.find(t => t.id === orden.estadoId) 
+                = estado ? estado.nombre : 'Sin estado'
+              td  
+                - let bioquimico = bioquimicos.find(t => t.id === orden.bioquimicoId) 
+                = bioquimico ? bioquimico.nombre + " " + bioquimico.apellido : 'Sin nombre'
+              td  
+                - let examen = examenes.find(t => t.id === orden.examenId) 
+                = examen ? examen.nombre  : 'Sin nombre'
+              td  
+                - let muestra = muestras.find(t => t.pacienteId === orden.pacienteId) 
+                = muestra ? muestra.id  : 'Sin muestra'

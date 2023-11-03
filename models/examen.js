@@ -14,10 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       Examen.belongsToMany(models.Determinacion, { through: 'ExamenDeterminacion', foreignKey: 'examenId' });
       Examen.belongsToMany(models.ExamenDeterminacion, { through: models.ExamenDeterminacion });
       Examen.hasMany(models.ExamenDeterminacion, { foreignKey: 'examenId' });
-      Examen.belongsTo(models.TipoMuestra)
+     // Examen.belongsToMany(models.TipoMuestra)
       
-
-      // Asociación con Muestra (one-to-many)
     }
   }
   Examen.init({

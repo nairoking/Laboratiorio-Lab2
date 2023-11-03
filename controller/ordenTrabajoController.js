@@ -37,7 +37,7 @@ const crearOrdenTrabajo = async (req, res) => {
       });
   
       // Si todo va bien, devuelve una respuesta satisfactoria
-      return res.status(200).json({ mensaje: 'Orden de trabajo creada exitosamente.', nuevaOrdenTrabajo });
+      listarOrdenes(req, res);
     } catch (error) {
       console.error(error);
       return res.status(500).json({ mensaje: 'Error al crear la orden de trabajo.' });
@@ -46,7 +46,7 @@ const crearOrdenTrabajo = async (req, res) => {
 
 const listarOrdenes = async (req, res) => {
   try {
-      const ordenes = await db.OrdenTrabajo.findAll();
+      const ordenes = await db.OrdenTrabajo.findAll({attributes: { exclude: ['TipoMuestraId'] }});
       const pacientes = await db.Paciente.findAll();
       const estados = await db.Estado.findAll();
       const bioquimicos = await db.Bioquimico.findAll();
@@ -58,6 +58,23 @@ const listarOrdenes = async (req, res) => {
     }
 };
 
+/*const listarOrdenes2 = async (req, res) => {
+  try {
+    const ordenes = await db.OrdenTrabajo.findAll({
+      include: [
+        { model: db.Paciente, attributes: ['nombre', 'apellido'] },
+        { model: db.Estado, attributes: ['nombre'] },
+        { model: db.Bioquimico, attributes: ['nombre'] },
+        { model: db.Examen, attributes: ['nombre'] },
+        { model: db.Muestra, attributes: ['id'] }
+      ]
+    });
+
+    res.render('listarOrdenes', { ordenes });
+  } catch (error) {
+    res.status(500).json({ mensaje: 'Error al obtener la lista de Ordenes de trabajo', error: error.message });
+  }
+};*/
 
 
 
