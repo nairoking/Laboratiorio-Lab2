@@ -9,7 +9,7 @@ const mostrarFormCrearExamen = async (req, res) => {
       }
       
 
-      res.render('crearExamen', { tipoMuestras });
+      res.render('crearExamen2', { tipoMuestras });
       
   }catch (error) {
     res.status(500).json({ mensaje: 'Error al crear el examen', error: error.message });

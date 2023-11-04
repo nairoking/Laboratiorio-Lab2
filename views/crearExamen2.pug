@@ -1,0 +1,125 @@
+head
+  title Crear Examen
+  include includes/header
+
+head
+  title Crear Examen
+  include includes/header
+
+body
+  block content
+    .container.mt-5
+      .row.justify-content-between
+
+        // Primera columna - Formulario de Examen
+        .col-md-4
+          h1.mb-4.link-custom Crear Examen
+          br
+
+          form.form-group(action="/examenes/crear", method="post")
+            label(for="nombre" class="link-custom") Nombre del Examen
+            input.form-control(type="text", name="nombre", required)
+            label(for="tipoMuestraId" class="link-custom") Tipo de muestra
+            select.form-control(name='tipoMuestraId', required)
+              each TipoMuestra in tipoMuestras
+                option(value=TipoMuestra.id) #{TipoMuestra.nombre+ "-" + TipoMuestra.id}
+            button.btn.btn-custom.btn-block(type="submit" value="Crear Examen") Crear Examen
+
+        // Segunda columna - Formulario de Determinaciones
+        .col-md-4
+          h1.mb-4.link-custom Determinaciones
+          br
+
+          button.btn.btn-custom#agregarDeterminacion1(type="button") Agregar Determinación
+
+          form.form-group(action="/examenes/crearDeterminacion", method="post")
+            label(for="nombreDeterminacion" class="link-custom") Nombre de la Determinación
+            input.form-control(type="text", name="nombreDeterminacion", required)
+
+        // Tercera columna - Formulario de Valores de Referencia
+        .col-md-4
+          h1.mb-4.link-custom Valores de Referencia
+          br
+
+          button.btn.btn-custom#agregarValoresReferencia1(type="button") Agregar Valores de Referencia
+
+          form.form-group(action="/examenes/agregarValoresReferencia", method="post")
+            label(for="rangoMinimo" class="link-custom") Rango Mínimo
+            input.form-control(type="text", name="rangoMinimo", required)
+            label(for="rangoMaximo" class="link-custom") Rango Máximo
+            input.form-control(type="text", name="rangoMaximo", required)
+            label(for="nombreDeterminacionReferencia" class="link-custom") Nombre de la Determinación (Referencia)
+            input.form-control(type="text", name="nombreDeterminacionReferencia", required)
+
+script.
+  document.getElementById('agregarDeterminacion1').addEventListener('click', function() {
+    var formularioDeterminacion = document.createElement('form');
+    formularioDeterminacion.classList.add('form-group');
+    formularioDeterminacion.action = "/examenes/crearDeterminacion"; 
+    formularioDeterminacion.method = "post";
+
+    var labelNombreDeterminacion = document.createElement('label');
+    labelNombreDeterminacion.setAttribute('for', 'nombreDeterminacion');
+    labelNombreDeterminacion.classList.add('link-custom');
+    labelNombreDeterminacion.innerText = "Nombre de la Determinación";
+
+    var inputNombreDeterminacion = document.createElement('input');
+    inputNombreDeterminacion.classList.add('form-control');
+    inputNombreDeterminacion.setAttribute('type', 'text');
+    inputNombreDeterminacion.setAttribute('name', 'nombreDeterminacion');
+    inputNombreDeterminacion.setAttribute('required', 'true');
+
+    formularioDeterminacion.appendChild(labelNombreDeterminacion);
+    formularioDeterminacion.appendChild(inputNombreDeterminacion);
+
+    document.querySelector('.col-md-4:nth-child(2)').appendChild(formularioDeterminacion);
+  });
+
+  document.getElementById('agregarValoresReferencia1').addEventListener('click', function() {
+    var formularioValoresReferencia = document.createElement('form');
+    formularioValoresReferencia.classList.add('form-group');
+    formularioValoresReferencia.action = "/examenes/agregarValoresReferencia"; 
+    formularioValoresReferencia.method = "post";
+
+    var labelRangoMinimo = document.createElement('label');
+    labelRangoMinimo.setAttribute('for', 'rangoMinimo');
+    labelRangoMinimo.classList.add('link-custom');
+    labelRangoMinimo.innerText = "Rango Mínimo";
+
+    var inputRangoMinimo = document.createElement('input');
+    inputRangoMinimo.classList.add('form-control');
+    inputRangoMinimo.setAttribute('type', 'text');
+    inputRangoMinimo.setAttribute('name', 'rangoMinimo');
+    inputRangoMinimo.setAttribute('required', 'true');
+
+    var labelRangoMaximo = document.createElement('label');
+    labelRangoMaximo.setAttribute('for', 'rangoMaximo');
+    labelRangoMaximo.classList.add('link-custom');
+    labelRangoMaximo.innerText = "Rango Máximo";
+
+    var inputRangoMaximo = document.createElement('input');
+    inputRangoMaximo.classList.add('form-control');
+    inputRangoMaximo.setAttribute('type', 'text');
+    inputRangoMaximo.setAttribute('name', 'rangoMaximo');
+    inputRangoMaximo.setAttribute('required', 'true');
+
+    var labelNombreDeterminacionReferencia = document.createElement('label');
+    labelNombreDeterminacionReferencia.setAttribute('for', 'nombreDeterminacionReferencia');
+    labelNombreDeterminacionReferencia.classList.add('link-custom');
+    labelNombreDeterminacionReferencia.innerText = "Nombre de la Determinación (Referencia)";
+
+    var inputNombreDeterminacionReferencia = document.createElement('input');
+    inputNombreDeterminacionReferencia.classList.add('form-control');
+    inputNombreDeterminacionReferencia.setAttribute('type', 'text');
+    inputNombreDeterminacionReferencia.setAttribute('name', 'nombreDeterminacionReferencia');
+    inputNombreDeterminacionReferencia.setAttribute('required', 'true');
+
+    formularioValoresReferencia.appendChild(labelRangoMinimo);
+    formularioValoresReferencia.appendChild(inputRangoMinimo);
+    formularioValoresReferencia.appendChild(labelRangoMaximo);
+    formularioValoresReferencia.appendChild(inputRangoMaximo);
+    formularioValoresReferencia.appendChild(labelNombreDeterminacionReferencia);
+    formularioValoresReferencia.appendChild(inputNombreDeterminacionReferencia);
+
+    document.querySelector('.col-md-4:nth-child(3)').appendChild(formularioValoresReferencia);
+  });
