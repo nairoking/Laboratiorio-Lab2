@@ -1,5 +1,6 @@
 const {Paciente} = require('../models');  // Importa el modelo Paciente
-
+const jwt = require('jsonwebtoken');
+const secretKey = 'mySecretKey';
 module.exports = {
 
   // Método para listar todos los pacientes
@@ -51,6 +52,18 @@ module.exports = {
     } catch (error) {
       res.render('error', { error });
     }
+  },
+
+  async mostrarPerfil (req, res)  {
+ 
+    const token = req.cookies.jwtToken;
+    const decodedToken = jwt.verify(token, secretKey);
+  
+    const userId = decodedToken.userId;
+  
+    const paciente = await Paciente.findByPk(userId);
+  
+    res.render('modificarPacientePerfil', { paciente , token});
   },
 
 // carga el formulario para editar un paciente

@@ -134,4 +134,39 @@ const eliminarExamen = async (req, res) => {
 
 
 
-module.exports = { crearExamen,verDetalles,verDeterminaciones, actualizarExamen, eliminarExamen, listarExamenes, mostrarFormCrearExamen, mostrarFormEditarExamen };
+const crearExamenConDeterminacionesYValores = async (req, res) => {
+  const { nombreExamen,tipoMuestraId, determinaciones, valoresReferencia } = req.body;
+
+  const t = await db.sequelize.transaction(); // Inicia la transacción
+
+  try {
+    // Crea el examen
+    const examen = await db.Examen.create({ nombre: nombreExamen, tipoMuestraId }, { transaction: t });
+
+    // Crea las determinaciones asociadas al examen
+    for (const determinacionData of determinaciones) {
+      const determinacion = await db.Determinacion.create({
+        nombre: determinacionData.nombre,
+        ExamenId: examen.id, // Asocia la determinación al examen
+      }, { transaction: t });
+
+      // Crea los valores de referencia asociados a la determinación
+      for (const valorReferenciaData of valoresReferencia) {
+        await db.ValorReferencia.create({
+          rangoMinimo: valorReferenciaData.rangoMinimo,
+          rangoMaximo: valorReferenciaData.rangoMaximo,
+          DeterminacionId: determinacion.id, // Asocia el valor de referencia a la determinación
+        }, { transaction: t });
+      }
+    }
+
+    await t.commit(); // Confirma la transacción
+
+    res.status(200).json({ mensaje: 'Examen creado exitosamente' });
+  } catch (error) {
+    await t.rollback(); // Deshace la transacción en caso de error
+    res.status(500).json({ mensaje: 'Error al crear el examen', error: error.message });
+  }
+};
+
+module.exports = { crearExamenConDeterminacionesYValores,crearExamen,verDetalles,verDeterminaciones, actualizarExamen, eliminarExamen, listarExamenes, mostrarFormCrearExamen, mostrarFormEditarExamen };

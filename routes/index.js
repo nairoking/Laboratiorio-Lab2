@@ -13,6 +13,19 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/indexPaciente', function(req, res, next) {
+  res.render('indexPaciente', { title: 'Home' });
+});
+
+router.get('/logout', (req, res) => {
+  // Elimina la cookie que contiene el token
+  res.clearCookie('jwtToken'); 
+
+  // Redirige al usuario a la página de login
+  res.redirect('/login');
+});
+
+
 router.get('/login', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
@@ -24,6 +37,9 @@ router.get('/buscador', function(req, res, next) {
 router.get('/registro', function(req, res, next) {
   res.render('registro', { title: 'Express' });
 });
+
+router.post('/loguear', authController.login);// para inicar sesion
+
 
 
 //PRUEBAS EXAMEN - DETERMINACIONES - REFERENCIAS
@@ -52,6 +68,8 @@ router.get('/buscar', pacienteController.buscarPorDNI);//buscar por dni
 router.post('/registrar', pacienteController.registrarPaciente);//añta de paciente
 router.get('/modificarPaciente/:id', pacienteController.mostrarDatosPaciente);//selecciona un paciente para modificar
 router.post('/guardarCambios', pacienteController.actualizarPaciente);//guarda la modificacion
+router.get('/perfil', pacienteController.mostrarPerfil);
+
 
 router.get('/ordenes/crear', ordenTrabajoController.cargarfrmOrdenTrabajo);//Cargar la vista para nueva orden de trabajo
 router.post('/ordenTrabajo/crear', ordenTrabajoController.crearOrdenTrabajo);//Alta de orden de trabajo
@@ -67,7 +85,7 @@ router.post('/examenes/:id', examenController.actualizarExamen);//guarda los dat
 router.get('/examenes/:id/detalles', examenController.verDetalles);
 router.get('/:id/detalles', examenController.verDeterminaciones);
 
-
+router.post('/examenes/crearConDeterminacionesYValores', examenController.crearExamenConDeterminacionesYValores);
 
 // Ruta para manejar la solicitud POST del formulario
 router.post('/registrar', (req, res) => {

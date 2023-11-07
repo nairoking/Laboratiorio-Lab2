@@ -6,12 +6,16 @@ head
             img(src='/public/images/logo.png'  alt='logo' srcset='' width='auto' height='140')
         ul.nav.nav-pills
             li.nav-item
-                a.nav-link(href='/' aria-current='page' class="link-custom") Inicio
+                a.nav-link(href='/indexPaciente' aria-current='page' class="link-custom" onclick="realizarSolicitud(event)") Inicio
             li.nav-item
-                a.nav-link(href='#' class="link-custom") Perfil
+                a.nav-link(href='/perfil' class="link-custom") Perfil
             li.nav-item
                 a.nav-link(href='#' class="link-custom") Mis Resultados
             li.nav-item
                 a.nav-link(href="#" class="link-custom") Mis Examenes
-            li.nav-item
-                a.nav-link(href='/login' class="link-custom") Login
+            if token
+                li.nav-item
+                    a.nav-link(href='/logout' class="link-custom") Cerrar Sesión
+            else
+                li.nav-item
+                    a.nav-link(href='/login' class="link-custom") Login
