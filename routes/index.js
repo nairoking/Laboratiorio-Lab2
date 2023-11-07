@@ -23,6 +23,17 @@ router.get('/registro', function(req, res, next) {
 });
 
 
+//PRUEBAS EXAMEN - DETERMINACIONES - REFERENCIAS
+router.get('/selectDeterminacion', function(req, res, next) {
+  res.render('selectDeterminacion', { title: 'Determinacion' });
+});
+
+router.get('/agregarReferencias', function(req, res, next) {
+  res.render('agregarReferencias', { title: 'Referencias' });
+});
+
+
+
 router.get('/pacientes', pacienteController.listar);//listar todos los pacientes
 router.get('/buscar', pacienteController.buscarPorDNI);//buscar por dni
 router.post('/registrar', pacienteController.registrarPaciente);//añta de paciente
@@ -35,7 +46,8 @@ router.get('/ordenTrabajo/listar', ordenTrabajoController.listarOrdenes);//Lista
 
 
 router.get('/examenes', examenController.listarExamenes);// muestra todos los examenes
-router.get('/examenes/crear', examenController.mostrarFormCrearExamen);// carga el formulario para una alta de examen
+router.get('/examenes/crear', examenController.mostrarFormCrearExamen);// carga el formulario para una alta de examen PASA a selec determinacion
+//router.get('/selectDeterminacion', examenController.selectDeterminacion);
 router.post('/examenes/crear', examenController.crearExamen);//guarda los datos del nuevo examen
 router.get('/examenes/:id/editar', examenController.mostrarFormEditarExamen);//carga los datos a editar en un formulario
 router.post('/examenes/:id', examenController.actualizarExamen);//guarda los datos actualizados

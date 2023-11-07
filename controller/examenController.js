@@ -9,7 +9,7 @@ const mostrarFormCrearExamen = async (req, res) => {
       }
       
 
-      res.render('crearExamen2', { tipoMuestras });
+      res.render('crearExamen', { tipoMuestras });
       
   }catch (error) {
     res.status(500).json({ mensaje: 'Error al crear el examen', error: error.message });
@@ -26,7 +26,7 @@ const crearExamen = async (req, res) => {
 
     const resultado = await db.Examen.create({ nombre ,tipoMuestraId});
     //res.json({ nombre,tipoMuestraId });
-    res.redirect('/examenes');
+    res.redirect('/selectDeterminacion');
   } catch (error) {
     res.status(500).json({ mensaje: 'Error al crear el examen', error: error.message });
   }

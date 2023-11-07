@@ -1,0 +1,38 @@
+head
+  title Crear Examen
+  include includes/header
+  
+body
+  block content
+    .container
+      .row-justify-content-center
+        // Tercera columna - Formulario de Valores de Referencia
+        .col-md-8
+          h1.mb-8.link-custom Valores de Referencia
+          br
+
+          button.btn.btn-custom#agregarValoresReferencia1(type="button") Agregar Valores de Referencia
+
+          form.form-group(action="/examenes/agregarValoresReferencia", method="post")
+            label(for="rangoMinimo" class="link-custom") Rango Mínimo
+            input.form-control(type="text", name="rangoMinimo", required)
+            label(for="rangoMaximo" class="link-custom") Rango Máximo
+            input.form-control(type="text", name="rangoMaximo", required)
+            label(for="nombreDeterminacionReferencia" class="link-custom") Nombre de la Determinación (Referencia)
+            input.form-control(type="text", name="nombreDeterminacionReferencia", required)
+        button.btn.btn-custom(type="button" id="guardar") Guardar Valor de Referencia
+        button.btn.btn-custom(type="submit") Finalizar
+script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous")
+script.
+  document.getElementById('guardar').addEventListener('click', function() {
+    const nombre = document.querySelector("input[name='nombreDeterminacionReferencia']").value;
+    console.log(nombre);
+    alert('El valor de Referencia '+ nombre + ' ha sido cargado! ')
+    
+    const inputs = document.querySelectorAll("input");
+
+    inputs.forEach((input) => {
+    input.value = "";
+    });
+    //METER EL METODO CARGAR
+  });

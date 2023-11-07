@@ -21,6 +21,7 @@
  .btn-custom {
     background-color: #77BC1F; /* Cambia este valor al color que prefieras */
     border-color: #77BC1F; /* Puedes ajustar el color del borde si lo deseas */
+    margin: 7px;
   }
   .btn-custom:hover {
     background-color: #457a05; /* Cambia este valor al color que prefieras cuando el botón está en hover */

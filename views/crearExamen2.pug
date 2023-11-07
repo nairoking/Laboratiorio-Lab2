@@ -7,23 +7,7 @@ head
   include includes/header
 
 body
-  block content
-    .container.mt-5
-      .row.justify-content-between
 
-        // Primera columna - Formulario de Examen
-        .col-md-4
-          h1.mb-4.link-custom Crear Examen
-          br
-
-          form.form-group(action="/examenes/crear", method="post")
-            label(for="nombre" class="link-custom") Nombre del Examen
-            input.form-control(type="text", name="nombre", required)
-            label(for="tipoMuestraId" class="link-custom") Tipo de muestra
-            select.form-control(name='tipoMuestraId', required)
-              each TipoMuestra in tipoMuestras
-                option(value=TipoMuestra.id) #{TipoMuestra.nombre+ "-" + TipoMuestra.id}
-            button.btn.btn-custom.btn-block(type="submit" value="Crear Examen") Crear Examen
 
         // Segunda columna - Formulario de Determinaciones
         .col-md-4
