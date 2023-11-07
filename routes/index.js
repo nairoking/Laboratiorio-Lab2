@@ -4,6 +4,9 @@ var pacienteController = require("../controller/pacienteController.js");
 const examen = require('../models/examen.js');
 var examenController = require("../controller/examenController.js");
 var ordenTrabajoController = require("../controller/ordenTrabajoController.js");
+var authController = require("../controller/authController.js");
+const authMiddleware = require('../middleware/authMiddleware');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -32,7 +35,17 @@ router.get('/agregarReferencias', function(req, res, next) {
   res.render('agregarReferencias', { title: 'Referencias' });
 });
 
+router.get('/indexPaciente', function(req, res, next) {
+  res.render('indexPaciente', { title: 'Home' });
+});
+router.get('/logout', (req, res) => {
+  // Elimina la cookie que contiene el token
+  res.clearCookie('jwtToken'); 
+  // Redirige al usuario a la página de login
+  res.redirect('/login');
+});
 
+router.post('/loguear', authController.login);// para inicar sesion
 
 router.get('/pacientes', pacienteController.listar);//listar todos los pacientes
 router.get('/buscar', pacienteController.buscarPorDNI);//buscar por dni
