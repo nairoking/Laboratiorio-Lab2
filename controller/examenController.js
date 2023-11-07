@@ -78,13 +78,24 @@ const listarExamenes = async (req, res) => {
   const verDetalles = async (req, res) => {
     try {
       const { id } = req.params;
-      const examen = await db.Examen.findByPk(id, {
-        include: [{
-          model: db.ExamenDeterminacion,
-          include: [db.Determinacion],
-        }],
-      });
-      res.render('detalleExamen', { examen });
+      const examdet = await db.ExamenDeterminacion.findAll({
+        where: {
+          examenId:id
+        },
+        attributes: {
+        exclude: ['ExamenDeterminacionId', 'ExamenId']
+      }
+    });
+    const determinaciones = await db.Determinacion.findAll({
+      
+      attributes: {
+      exclude: [ 'examenId']
+    }
+  });
+
+       
+      res.json({id,determinaciones, examdet});
+      
     } catch (error) {
       res.status(500).json({ mensaje: 'Error al obtener detalles del examen', error: error.message });
     }
@@ -202,7 +213,8 @@ const agregarValoresReferencia = async (req, res) =>{
     });*/
 
     //res.json({valores, idexd, examdet, examdet2});
-    res.render('agregarReferencias', {examdet});
+    res.json({valores});
+    //res.render('agregarReferencias', {examdet});
   }
 
  }catch(error){

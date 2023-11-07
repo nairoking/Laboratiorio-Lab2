@@ -10,23 +10,24 @@ body
           img(src='/public/images/bannerlogin.png' alt="#" width='100%') 
         .col-sm-5.offset-sm-2.col-md-6.offset-md-0
           img(src='/public/images/logo.png' alt="#" width='40%') 
-          form(action="/loguear", method="post" name="formu")
-            label(for="email") Usuario
-            input(type="text", id="email", name="email", placeholder="Ingresa tu usuario o correo electrónico", required,value=(typeof emailValue !== 'undefined') ? emailValue : '')
+          form.form-group(action="/loguear", method="post" name="formu")
+            label(for="email" class="form-label") Usuario
+            input.form-control(type="text", id="email", name="email", placeholder="Ingresa tu usuario o correo electrónico", required,value=(typeof emailValue !== 'undefined') ? emailValue : '')
             if(email)
               br
               p(id="errorEmail") #{email}
             br
-            label(for="contrasena") Contraseña:
-            input(type="password", id="contrasena", name="contrasena", placeholder="Ingresa tu contraseña", required, value=value=(typeof passValue !== 'undefined') ? passValue : '')
+            label(for="contrasena" class="form-label") Contraseña:
+            input.form-control(type="password", id="contrasena", name="contrasena", placeholder="Ingresa tu contraseña", required, value=value=(typeof passValue !== 'undefined') ? passValue : '' )
             if(pass)
               br
               p(id="errorPass") #{pass}
             br
-            label(for="contrasena") Rol:
-            select(id="opciones" name="nombreRol")
+            label(for="contrasena" class="form-label") Rol:
+            select.form-select(id="opciones" name="nombreRol")
               option(value="Paciente") Paciente
               option(value="Recepcionista") Recepcionista
               option(value="Tecnico") Tecnico
               option(value="Bioquimico") Bioquimico
-            input(type="submit")
+            br
+            button.btn.btn-custom(type="submit") Iniciar Sesion
