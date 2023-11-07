@@ -14,10 +14,7 @@ const mostrarFormCrearExamen = async (req, res) => {
   }catch (error) {
     res.status(500).json({ mensaje: 'Error al crear el examen', error: error.message });
   }
- 
 
-  
-  
 };
 
 const crearExamen = async (req, res) => {
@@ -26,7 +23,7 @@ const crearExamen = async (req, res) => {
 
     const resultado = await db.Examen.create({ nombre ,tipoMuestraId});
     //res.json({ nombre,tipoMuestraId });
-    res.redirect('/selectDeterminacion');
+    res.render('selectDeterminacion', {resultado});
   } catch (error) {
     res.status(500).json({ mensaje: 'Error al crear el examen', error: error.message });
   }
@@ -72,7 +69,7 @@ const listarExamenes = async (req, res) => {
         const examenes = await db.Examen.findAll();
         const tipoMuestras = await db.TipoMuestra.findAll();
         res.render('listarExamenes', { examenes , tipoMuestras });
-        //res.render('listarExam2', { examenes , tipoMuestras });
+        
       } catch (error) {
         res.status(500).json({ mensaje: 'Error al obtener la lista de exámenes', error: error.message });
       }
@@ -133,6 +130,24 @@ const eliminarExamen = async (req, res) => {
 };
 
 
+const agregarDeterminacion = async (req, res) =>{
+  const {nombre, unidadMedida, examenId} = req.body;
+
+  try {
+
+  const determinacion = await db.Determinacion.create({nombre,unidadMedida});
+  if(determinacion){
+    const examdet = await db.ExamenDeterminacion.create({examenId: examenId, determinacionId:determinacion.id});
+    res.render('agregarReferencias', {examdet});
+  }
+ 
+
+  } catch (error) {
+    res.status(500).json({ mensaje: 'Error al crear determinacion', error: error.message });
+  }
+
+};
+
 
 const crearExamenConDeterminacionesYValores = async (req, res) => {
   const { nombreExamen,tipoMuestraId, determinaciones, valoresReferencia } = req.body;
@@ -169,4 +184,29 @@ const crearExamenConDeterminacionesYValores = async (req, res) => {
   }
 };
 
-module.exports = { crearExamenConDeterminacionesYValores,crearExamen,verDetalles,verDeterminaciones, actualizarExamen, eliminarExamen, listarExamenes, mostrarFormCrearExamen, mostrarFormEditarExamen };
+const agregarValoresReferencia = async (req, res) =>{
+ const{rango_min,rango_max,descripcion,examenId,determinacionId,idexd, examdet } = req.body;
+
+ try{
+  const valores = await db.ValoresReferencia.create({rango_min,rango_max,descripcion,determinacionId});
+  if(valores){
+    const id = parseInt(idexd, 10);
+
+    /*const examdet2 = db.ExamenDeterminacion.findOne({
+      where: {
+        id: examdet.id
+      },
+      attributes: {
+        exclude: ['ExamenDeterminacionId', 'ExamenId']
+      }
+    });*/
+
+    //res.json({valores, idexd, examdet, examdet2});
+    res.render('agregarReferencias', {examdet});
+  }
+
+ }catch(error){
+  res.status(500).json({ mensaje: 'Error al crear valores de referencia', error: error.message });
+ }
+};
+module.exports = { agregarValoresReferencia, agregarDeterminacion, crearExamenConDeterminacionesYValores,crearExamen,verDetalles,verDeterminaciones, actualizarExamen, eliminarExamen, listarExamenes, mostrarFormCrearExamen, mostrarFormEditarExamen };

@@ -24,11 +24,11 @@ const login = (req, res) => {
         roleId = 2; // Por ejemplo, si el ID del rol Paciente es 1 en tu base de datos
         break;
       case 'Recepcionista':
-        //UserModel = db.Recepcionista;
+        UserModel = db.Recepcionista;
         roleId = 4; // ID del rol Recepcionista
         break;
       case 'Tecnico':
-       // UserModel = Tecnico;
+       UserModel = Tecnico;
         roleId = 5; // ID del rol Tecnico
         break;
       case 'Bioquimico':
@@ -53,13 +53,16 @@ const login = (req, res) => {
                 res.render('indexPaciente', { token });
                 break;
             case 'Recepcionista':
-              res.redirect('indexRecepcionista');
+                res.cookie('jwtToken', token, { httpOnly: true });
+                res.render('indexRecepcionista', { token });
               break;
             case 'Tecnico':
-              res.redirect('/indexTecnico');
+                res.cookie('jwtToken', token, { httpOnly: true });
+                res.render('indexBioquimico', { token });
               break;
             case 'Bioquimico':
-              res.redirect('/indexBioquimico');
+                res.cookie('jwtToken', token, { httpOnly: true });
+                res.render('indexBioquimico', { token });
               break;
             default:
               res.status(401).json({ message: 'Rol no válido' });

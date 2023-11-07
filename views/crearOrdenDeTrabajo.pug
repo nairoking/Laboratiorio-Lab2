@@ -29,13 +29,22 @@ body
       select.form-control(name="pacienteId", required)
         each paciente in pacientes
           option(value=paciente.id)= `${paciente.nombre} ${paciente.apellido}`
+          - var id = paciente.id
       br
 
       label(for="muestraId" class="link-custom") Código de Muestra
       select.form-control(name="muestraId", required)
         // Opciones de muestras
         each muestra in muestras
-          option(value=muestra.id)= muestra.id
+          - var pacienteId = muestra.pacienteId
+          if (pacienteId)
+            - var paciente = pacientes.find(p => p.id === pacienteId)
+            if (paciente)
+              option(value=muestra.id)= `${muestra.id} - ${paciente.nombre} ${paciente.apellido}`
+            else
+              option(value=muestra.id)= muestra.id
+          else
+            option(value=muestra.id)= muestra.id
           
       br
 

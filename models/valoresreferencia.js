@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
       }
     }, 
     rango_min: DataTypes.FLOAT,
-    rango_max: DataTypes.FLOAT
+    rango_max: DataTypes.FLOAT,
+    descripcion: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'ValoresReferencia',

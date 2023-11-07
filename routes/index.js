@@ -85,7 +85,9 @@ router.post('/examenes/:id', examenController.actualizarExamen);//guarda los dat
 router.get('/examenes/:id/detalles', examenController.verDetalles);
 router.get('/:id/detalles', examenController.verDeterminaciones);
 
-router.post('/examenes/crearConDeterminacionesYValores', examenController.crearExamenConDeterminacionesYValores);
+router.post('/agregarDeterminacion', examenController.agregarDeterminacion);
+router.post('/agregarValoresReferencia', examenController.agregarValoresReferencia);
+
 
 // Ruta para manejar la solicitud POST del formulario
 router.post('/registrar', (req, res) => {
